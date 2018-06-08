@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ujuzicode.mobilebluetothprinter">
 
     <uses-feature
@@ -23,19 +24,27 @@
         android:smallScreens="true" />
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MobileBluetothPrinter_splash">
+        android:allowBackup="false"
+        tools:replace="android:allowBackup,android:icon"
+        android:theme="@style/SplashAppTheme.Base">
+        <activity android:name=".MobileBluetothPrinter_Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MobileBluetothPrinter_Main"
+            android:windowSoftInputMode="adjustPan"
+            android:label="@string/app_name"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"/>
 
         <service android:name="com.ujuzicode.mobilebluetothprinter.printer.WorkService" />
 

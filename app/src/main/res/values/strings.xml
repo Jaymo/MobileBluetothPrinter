@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MBT Printer</string>
+
+    <!-- Splash page -->
+    <string name="splash_page">Ujuzi Code Ltd</string>
 </resources>
