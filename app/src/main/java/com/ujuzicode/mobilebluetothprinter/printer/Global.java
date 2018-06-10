@@ -112,8 +112,7 @@ public class Global {
 	public static final int CMD_PORTABLE_SETBTPARA_RESULT = 100315;
 
 	public static String toast_success = "Done";
-	public static String toast_fail = "Fail";
+	public static String toast_fail = "Failed";
 	public static String toast_notconnect = "Please connect printer";
-	public static String toast_usbpermit = "Please permit app use usb and reclick this button";
 	public static String toast_connecting = "Connecting";
 }

@@ -6,5 +6,11 @@
 
     <!-- Main page -->
     <string name="bluetooth_menu">Bluetooth</string>
+    <string name="bluetooth_connecting">Please wait for Bluetooth connection to complete!</string>
+
+    <!-- Bluetooth list -->
+    <string name="toast_success">Bluetooth connection successful</string>
+    <string name="toast_fail">Bluetooth connection failed</string>
+    <string name="toast_notconnect">Please connect printer</string>
 
 </resources>

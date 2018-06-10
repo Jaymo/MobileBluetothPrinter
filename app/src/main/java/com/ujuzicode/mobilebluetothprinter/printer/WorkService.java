@@ -12,20 +12,17 @@ import java.util.List;
 
 public class WorkService extends Service {
 
-	// Service workThread mHandler
 	public static WorkThread workThread = null;
-	private static Handler mHandler = null;
 	private static List<Handler> targetsHandler = new ArrayList<Handler>(5);
 
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void onCreate() {
-		mHandler = new MHandler(this);
+		Handler mHandler = new MHandler(this);
 		workThread = new WorkThread(mHandler);
 		workThread.start();
 

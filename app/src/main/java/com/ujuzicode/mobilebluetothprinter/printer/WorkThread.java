@@ -19,15 +19,25 @@ import com.lvrenyang.io.USBPrinting;
 public class WorkThread extends Thread {
 
 	private static final String TAG = "WorkThread";
+
 	private static Handler workHandler = null;
+
 	private static Looper mLooper = null;
+
 	static Handler targetHandler = null;
+
 	private static volatile boolean threadInitOK = false;
+
 	private static boolean isConnecting = false;
+
 	private static BTPrinting bt = null;
+
 	private static BLEPrinting ble = null;
+
 	private static NETPrinting net = null;
+
 	private static USBPrinting usb = null;
+
 	private static Pos pos = new Pos();
 
 	WorkThread(Handler handler) {
@@ -170,7 +180,7 @@ public class WorkThread extends Thread {
 				Message smsg = targetHandler
 						.obtainMessage(Global.CMD_POS_WRITERESULT);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -191,7 +201,7 @@ public class WorkThread extends Thread {
 				Bundle data = msg.getData();
 				byte[] key = data.getByteArray(Global.BYTESPARA1);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -215,7 +225,7 @@ public class WorkThread extends Thread {
 				Bundle data = msg.getData();
 				byte[] key = data.getByteArray(Global.BYTESPARA1);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -235,11 +245,11 @@ public class WorkThread extends Thread {
 			}
 			case Global.CMD_POS_PRINTPICTURE: {
 				Bundle data = msg.getData();
-				Bitmap mBitmap = (Bitmap) data.getParcelable(Global.PARCE1);
+				Bitmap mBitmap = data.getParcelable(Global.PARCE1);
 				int nWidth = data.getInt(Global.INTPARA1);
 				int nMode = data.getInt(Global.INTPARA2);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -266,12 +276,11 @@ public class WorkThread extends Thread {
 
 			case Global.CMD_POS_PRINTBWPICTURE: {
 				Bundle data = msg.getData();
-				// Bitmap mBitmap = (Bitmap) data.get(Global.OBJECT1);
-				Bitmap mBitmap = (Bitmap) data.getParcelable(Global.PARCE1);
+				Bitmap mBitmap = data.getParcelable(Global.PARCE1);
 				int nWidth = data.getInt(Global.INTPARA1);
 				int nMode = data.getInt(Global.INTPARA2);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -300,7 +309,7 @@ public class WorkThread extends Thread {
 				Bundle data = msg.getData();
 				int align = data.getInt(Global.INTPARA1);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -321,7 +330,7 @@ public class WorkThread extends Thread {
 				Bundle data = msg.getData();
 				int nHeight = data.getInt(Global.INTPARA1);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -342,7 +351,7 @@ public class WorkThread extends Thread {
 				Bundle data = msg.getData();
 				int nDistance = data.getInt(Global.INTPARA1);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -369,7 +378,7 @@ public class WorkThread extends Thread {
 				int nFontType = data.getInt(Global.INTPARA4);
 				int nFontStyle = data.getInt(Global.INTPARA5);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -394,7 +403,7 @@ public class WorkThread extends Thread {
 				int nCharSet = data.getInt(Global.INTPARA1);
 				int nCodePage = data.getInt(Global.INTPARA2);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -421,7 +430,7 @@ public class WorkThread extends Thread {
 				int nHriFontType = data.getInt(Global.INTPARA5);
 				int nHriFontPosition = data.getInt(Global.INTPARA6);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -446,7 +455,7 @@ public class WorkThread extends Thread {
 				int nVersion = data.getInt(Global.INTPARA2);
 				int necl = data.getInt(Global.INTPARA3);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -470,7 +479,7 @@ public class WorkThread extends Thread {
 				int nVersion = data.getInt(Global.INTPARA2);
 				int necl = data.getInt(Global.INTPARA3);
 
-				boolean result = false;
+				boolean result;
 
 				result = USBPrinting.class.getName().equals(pos.IO.getClass().getName()) || pos.POS_QueryOnline(1000);
 
@@ -553,21 +562,6 @@ public class WorkThread extends Thread {
 		}
 	}
 
-	public void connectBle(String BTAddress) {
-		if ((null != workHandler) && (null != mLooper)) {
-			Message msg = workHandler
-					.obtainMessage(Global.MSG_WORKTHREAD_HANDLER_CONNECTBLE);
-			msg.obj = BTAddress;
-			workHandler.sendMessage(msg);
-		} else {
-			if (null == workHandler)
-				Log.v(TAG, "workHandler is null pointer");
-
-			if (null == mLooper)
-				Log.v(TAG, "mLooper is null pointer");
-		}
-	}
-
 	public void connectBt(String BTAddress) {
 		if ((null != workHandler) && (null != mLooper)) {
 			Message msg = workHandler
@@ -583,40 +577,6 @@ public class WorkThread extends Thread {
 		}
 	}
 
-	public void connectNet(String IPAddress, int PortNumber) {
-		if ((null != workHandler) && (null != mLooper)) {
-			Message msg = workHandler
-					.obtainMessage(Global.MSG_WORKTHREAD_HANDLER_CONNECTNET);
-			msg.arg1 = PortNumber;
-			msg.obj = IPAddress;
-			workHandler.sendMessage(msg);
-		} else {
-			if (null == workHandler)
-				Log.v("WorkThread connectNet", "workHandler is null pointer");
-
-			if (null == mLooper)
-				Log.v("WorkThread connectNet", "mLooper is null pointer");
-		}
-	}
-
-	public void connectUsb(UsbManager manager, UsbDevice device) {
-		if ((null != workHandler) && (null != mLooper)) {
-			Message msg = workHandler
-					.obtainMessage(Global.MSG_WORKTHREAD_HANDLER_CONNECTUSB);
-			msg.obj = manager;
-			Bundle data = new Bundle();
-			data.putParcelable(Global.PARCE1, device);
-			msg.setData(data);
-			workHandler.sendMessage(msg);
-		} else {
-			if (null == workHandler)
-				Log.v("WorkThread connectUsb", "workHandler is null pointer");
-
-			if (null == mLooper)
-				Log.v("WorkThread connectUsb", "mLooper is null pointer");
-
-		}
-	}
 
 	public boolean isConnecting() {
 		return isConnecting;

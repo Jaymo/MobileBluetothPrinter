@@ -45,6 +45,14 @@
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"/>
 
+        <activity
+            android:name=".MobileBluetothPrinter_PrinterList"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/dialog_light"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:label=""/>
+
         <service android:name="com.ujuzicode.mobilebluetothprinter.printer.WorkService" />
 
     </application>

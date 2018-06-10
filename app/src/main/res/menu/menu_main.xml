@@ -5,10 +5,11 @@
     tools:context=".MobileBluetothPrinter_Main">
 
     <item
-        android:id="@+id/action_bluetooth"
+        android:id="@+id/action_bluetooth_activate"
         android:orderInCategory="400"
         android:title="@string/bluetooth_menu"
         android:icon="@drawable/ic_bluetooth"
         app:showAsAction="always"/>
+
 
 </menu>
