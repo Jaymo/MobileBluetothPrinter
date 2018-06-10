@@ -3,4 +3,8 @@
 
     <!-- Splash page -->
     <string name="splash_page">Ujuzi Code Ltd</string>
+
+    <!-- Main page -->
+    <string name="bluetooth_menu">Bluetooth</string>
+
 </resources>
