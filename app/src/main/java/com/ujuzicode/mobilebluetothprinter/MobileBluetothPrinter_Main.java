@@ -22,6 +22,7 @@ import com.ujuzicode.mobilebluetothprinter.printer.WorkService;
 import com.ujuzicode.mobilebluetothprinter.utils.DateUtil;
 import com.ujuzicode.mobilebluetothprinter.utils.FontDefine;
 import com.ujuzicode.mobilebluetothprinter.utils.Printers;
+import com.ujuzicode.mobilebluetothprinter.utils.Util;
 
 import java.lang.ref.WeakReference;
 
@@ -31,7 +32,7 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
 
     private int  BLUETOOTH_REQUEST= 3;
 
-    private Button  mPrint;
+    private Button  mPrint, mBarCode;
 
     private TextView toolbar_title;
 
@@ -55,8 +56,7 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(Html.fromHtml("<font color=\"#FFFFFF\"><b>" + getResources().getString(R.string.app_name) + "</b></font>"));
 
-        InitGlobalString();
-
+        Util.InitGlobalString(MobileBluetothPrinter_Main.this);
 
         if (null == WorkService.workThread) {
             Intent intent = new Intent(this, WorkService.class);
@@ -64,8 +64,11 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
         }
 
         mPrint = findViewById(R.id.btnPrint);
+        mBarCode = findViewById(R.id.btnBarCode);
         mPrint.setOnClickListener(this);
+        mBarCode.setOnClickListener(this);
         mPrint.setEnabled(false);
+        mBarCode.setEnabled(false);
 
     }
 
@@ -78,6 +81,12 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
                 WorkService.addHandler(mHandler);
                 printSampleReceipt();
                 break;
+
+            case R.id.btnBarCode:
+                mHandler = new mHandler(this);
+                WorkService.addHandler(mHandler);
+                printSampleBarcode();
+                break;
         }
 
     }
@@ -86,7 +95,7 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
     private void printSampleReceipt() {
 
         String companyNameStr	=
-                         "UJUZI CODE LTD" + "\n"
+                        "\nUJUZI CODE LTD" + "\n"
                         +"P.O. BOX 58247-00100"+ "\n"
                         +"NAIROBI, KENYA"+ "\n"
                         +"+254 20-2066548"+ "\n";
@@ -97,25 +106,9 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
 
         String date = DateUtil.timeMilisToString(System.currentTimeMillis(), "dd-MM-yy / HH:mm");
 
-        contentSb.append("TRANSACTION #: " +strTransaction + "\n");
+        contentSb.append("TRANSACTION #: ").append(strTransaction).append("\n");
         contentSb.append("DATE         : ").append(date).append("\n");
-        contentSb.append("SALES REP    : " +"JOHN DOE" + "\n");
-
-        int nOrgx = nStartOrgx * 12;
-        int nType = 0x41 + nBarcodetype;
-        int nWidthX = nBarcodeWidth + 2;
-        int nHeight = (nBarcodeHeight + 1) * 24;
-        int nHriFontType = nBarcodeFontType;
-        int nHriFontPosition = nBarcodeFontPosition;
-
-        Bundle barcode_data = new Bundle();
-        barcode_data.putString(Global.STRPARA1, strTransaction);
-        barcode_data.putInt(Global.INTPARA1, nOrgx);
-        barcode_data.putInt(Global.INTPARA2, nType);
-        barcode_data.putInt(Global.INTPARA3, nWidthX);
-        barcode_data.putInt(Global.INTPARA4, nHeight);
-        barcode_data.putInt(Global.INTPARA5, nHriFontType);
-        barcode_data.putInt(Global.INTPARA6, nHriFontPosition);
+        contentSb.append("SALES REP    : " +"JOHN DOE" + "\n\n");
 
 
         byte[] companyNameByte	= Printers.printfont(companyNameStr, FontDefine.FONT_32PX,FontDefine.Align_CENTER,(byte)0x1A, PocketPos.LANGUAGE_ENGLISH);
@@ -148,28 +141,36 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
 
         System.arraycopy(content2Byte, 0, totalByte, offset, content2Byte.length);
 
-
-        byte[] buffer = PocketPos.FramePack(PocketPos.FRAME_TOF_PRINT, totalByte, 0, totalByte.length);
-
         Bundle data = new Bundle();
-        data.putByteArray(Global.BYTESPARA1, buffer);
+        data.putByteArray(Global.BYTESPARA1, totalByte);
         data.putInt(Global.INTPARA1, 0);
-        if (buffer != null) {
-            data.putInt(Global.INTPARA2, buffer.length);
-        }
+        data.putInt(Global.INTPARA2, totalByte.length);
 
-        //WorkService.workThread.handleCmd(Global.CMD_POS_WRITE, data);
-
-        WorkService.workThread.handleCmd(Global.CMD_POS_SETBARCODE,barcode_data);
-
+        WorkService.workThread.handleCmd(Global.CMD_POS_WRITE, data);
 
     }
 
 
-    private void InitGlobalString() {
-        Global.toast_success = getString(R.string.toast_success);
-        Global.toast_fail = getString(R.string.toast_fail);
-        Global.toast_notconnect = getString(R.string.toast_notconnect);
+    private void printSampleBarcode() {
+
+        int nOrgx = nStartOrgx * 12;
+        int nType = 0x41 + nBarcodetype;
+        int nWidthX = nBarcodeWidth + 2;
+        int nHeight = (nBarcodeHeight + 1) * 24;
+        int nHriFontType = nBarcodeFontType;
+        int nHriFontPosition = nBarcodeFontPosition;
+
+        Bundle barcode_data = new Bundle();
+        barcode_data.putString(Global.STRPARA1, strTransaction);
+        barcode_data.putInt(Global.INTPARA1, nOrgx);
+        barcode_data.putInt(Global.INTPARA2, nType);
+        barcode_data.putInt(Global.INTPARA3, nWidthX);
+        barcode_data.putInt(Global.INTPARA4, nHeight);
+        barcode_data.putInt(Global.INTPARA5, nHriFontType);
+        barcode_data.putInt(Global.INTPARA6, nHriFontPosition);
+
+        WorkService.workThread.handleCmd(Global.CMD_POS_SETBARCODE,barcode_data);
+
     }
 
 
@@ -218,6 +219,7 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
                 String sName = data.getStringExtra("sName");
                 toolbar_title.setText(Html.fromHtml("<font color=\"#FFFFFF\"><b>MBT Printer (Printer: " + sName + ")</b></font>"));
                 mPrint.setEnabled(true);
+                mBarCode.setEnabled(true);
 
             }
 
