@@ -7,6 +7,7 @@
     <!-- Main page -->
     <string name="bluetooth_menu">Bluetooth</string>
     <string name="bluetooth_connecting">Please wait for Bluetooth connection to complete!</string>
+    <string name="print">Print Receipt</string>
 
     <!-- Bluetooth list -->
     <string name="toast_success">Bluetooth connection successful</string>

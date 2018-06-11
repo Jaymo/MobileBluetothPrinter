@@ -51,9 +51,9 @@ public class StringUtil
    *          if getLengthFlag = true, the length of the sequence of characters represented by this
    *          object.
    */
-  public static int saveConvert(String theString, byte[] dst, int offset, boolean escapeSpace, boolean lengthFlag, boolean getLengthFlag )
+  private static int saveConvert(String theString, byte[] dst, int offset, boolean escapeSpace, boolean lengthFlag, boolean getLengthFlag)
   {
-    if (false == getLengthFlag
+    if (!getLengthFlag
         && (null == dst || dst.length < (offset + (lengthFlag ? 1 : 0))
             || dst.length < 1 || offset < 0))
       return -1;

@@ -114,5 +114,5 @@ public class Global {
 	public static String toast_success = "Done";
 	public static String toast_fail = "Failed";
 	public static String toast_notconnect = "Please connect printer";
-	public static String toast_connecting = "Connecting";
+	public static String toast_connecting = "Connecting to ";
 }

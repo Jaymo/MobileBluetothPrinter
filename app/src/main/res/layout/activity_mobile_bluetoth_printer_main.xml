@@ -9,6 +9,16 @@
         layout="@layout/toolbar" />
 
 
-
+    <Button
+        android:id="@+id/btnPrint"
+        style="@style/button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/soft_blue_rounded_edges"
+        android:text="@string/print" />
 
 </RelativeLayout>

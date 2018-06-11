@@ -592,7 +592,7 @@ public class PocketPos
       byte format = data[i];
       i ++;
       byte value = data[i];
-      if (format == (byte)0x52) // Language Character Select
+      if (format == (byte)0x52) // Lang Character Select
       {
         language = value;
       }

@@ -29,7 +29,7 @@ public class MobileBluetothPrinter_PrinterList extends AppCompatActivity {
 
     public static final String PRINTERMAC = "PRINTERMAC";
 
-    private static String address;
+    private static String address,name;
 
     private ProgressDialog dialog;
 
@@ -59,7 +59,7 @@ public class MobileBluetothPrinter_PrinterList extends AppCompatActivity {
                 BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
                 if (adapter.isEnabled()) {
                     address = boundedPrinters.get(position).get(PRINTERMAC);
-                    String name = boundedPrinters.get(position).get(PRINTERNAME);
+                    name = boundedPrinters.get(position).get(PRINTERNAME);
                     dialog.setMessage(Global.toast_connecting + " " + name);
                     dialog.setIndeterminate(true);
                     dialog.setCancelable(false);
@@ -114,13 +114,13 @@ public class MobileBluetothPrinter_PrinterList extends AppCompatActivity {
                     if (result == 1) {
                         activity.dialog.cancel();
                         Toast.makeText(activity,Global.toast_success, Toast.LENGTH_SHORT).show();
-                        activity.setResult(Activity.RESULT_OK, new Intent().putExtra("sAddress",  address));
+                        activity.setResult(Activity.RESULT_OK, new Intent().putExtra("sName", name));
                         activity.finish();
                     }
                     else{
                         activity.dialog.cancel();
                         Toast.makeText(activity,Global.toast_fail, Toast.LENGTH_SHORT).show();
-                        activity.setResult(Activity.RESULT_CANCELED, new Intent().putExtra("sAddress", ""));
+                        activity.setResult(Activity.RESULT_CANCELED, new Intent().putExtra("sName", ""));
                         activity.finish();
                     }
 
@@ -131,6 +131,14 @@ public class MobileBluetothPrinter_PrinterList extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        setResult(Activity.RESULT_CANCELED, new Intent().putExtra("sName", ""));
+        finish();
+    }
 
     @Override
     protected void onDestroy() {
