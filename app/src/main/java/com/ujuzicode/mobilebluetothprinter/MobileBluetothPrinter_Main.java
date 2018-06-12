@@ -38,6 +38,8 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
 
     private static Handler mHandler = null;
 
+    private MenuItem activate_item,activated_item;
+
     private String strTransaction = "435353535435353"; //Sample transaction number
 
     private static int nBarcodetype, nStartOrgx, nBarcodeWidth = 1,
@@ -177,6 +179,15 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        activate_item = menu.findItem(R.id.action_bluetooth_activate);
+
+        activate_item.setVisible(true);
+
+        activated_item = menu.findItem(R.id.action_bluetooth_deactivate);
+
+        activated_item.setVisible(false);
+
         return true;
     }
 
@@ -206,6 +217,12 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
 
 
                 return  true;
+
+            case R.id.action_bluetooth_deactivate:
+                WorkService.workThread.disconnectBt();
+                stopService(new Intent(this, WorkService.class));
+                finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -220,10 +237,15 @@ public class MobileBluetothPrinter_Main  extends AppCompatActivity implements Vi
                 toolbar_title.setText(Html.fromHtml("<font color=\"#FFFFFF\"><b>MBT Printer (Printer: " + sName + ")</b></font>"));
                 mPrint.setEnabled(true);
                 mBarCode.setEnabled(true);
+                activate_item.setVisible(false);
+                activated_item.setVisible(true);
 
             }
 
-            if (resultCode == RESULT_CANCELED) {Log.i("Printer Name","no device obtained");}
+            if (resultCode == RESULT_CANCELED) {
+                activate_item.setVisible(true);
+                activated_item.setVisible(false);
+                Log.i("Printer Name","no device obtained");}
 
         }
 

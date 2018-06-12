@@ -11,5 +11,12 @@
         android:icon="@drawable/ic_bluetooth"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_bluetooth_deactivate"
+        android:orderInCategory="400"
+        android:title="@string/bluetooth_menu"
+        android:icon="@drawable/ic_bluetooth_connected"
+        app:showAsAction="ifRoom"/>
+
 
 </menu>
