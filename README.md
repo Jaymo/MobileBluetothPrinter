@@ -1,7 +1,8 @@
 Mobile Bluetoth Printer
 ------------------------
-This app demonstrates how to impeliment wireless printing on a mobile 58mm Bluetooth Printer.
-Most of this is used on [SFA (Sales Force Automation)](https://sfa.co.ke) and [Ujuzi Code](http://ujuzicode.com) product.
+This app demonstrates how to impeliment wireless printing on a mobile 58mm Bluetooth Printer(Cashino PTP-II printer).
+
+Mobile receipt printing is essential for [SFA (Sales Force Automation)](https://sfa.co.ke) and  other [Ujuzi Code](http://ujuzicode.com) products.
 
 ## Requirements
 * JDK Version 1.7 & above
@@ -29,12 +30,8 @@ Contributing
 #### Would you like to contribute code?
 
 1. [Mobile Bluetoth Printer](https://github.com/Jaymo/MobileBluetothPrinter).
-2. Create a new branch ([using GitHub](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/)) or the command `git checkout -b branch-name dev`).
+2. Create a new branch ([using GitHub](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/)) or the command `git checkout -b branch-name development`).
 3. [Start a pull request](https://github.com/Jaymo/MobileBluetothPrinter/compare). Reference [existing issues](https://github.com/Jaymo/MobileBluetothPrinter/issues) when possible.
 
 #### No code!
 * You can [discuss a bug](https://github.com/Jaymo/MobileBluetothPrinter/issues) or if it was not reported yet [submit a bug](https://github.com/Jaymo/MobileBluetothPrinter/issues/new).
-
-
-Libraries Used
-============
