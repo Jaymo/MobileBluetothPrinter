@@ -9,6 +9,9 @@
     <string name="bluetooth_connecting">Please wait for Bluetooth connection to complete!</string>
     <string name="print_receipt">Print Receipt</string>
     <string name="print_barcode">Print Barcode</string>
+    <string name="dialog_title">Disconnect Bluetooth ?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Bluetooth list -->
     <string name="toast_success">Bluetooth connection successful</string>
